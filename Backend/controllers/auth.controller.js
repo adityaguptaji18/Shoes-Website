@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken"
 async function registerUser(req,res) {
   
   try {
-    const {name,email,password}=req.body;
+    const {name,email,password,role}=req.body;
     let existingUser=await UserModel.findOne({email})
     if(existingUser){
     return res.status(400).json({
@@ -12,7 +12,7 @@ async function registerUser(req,res) {
     })
   }
   const hashedPassword=await bcrypt.hash(password,10);
-  const user=await UserModel.create({name,email,password:hashedPassword});
+  const user=await UserModel.create({name,email,password:hashedPassword,role});
   if(user){
     return res.status(201).json({
       message:"User registered successfully"
