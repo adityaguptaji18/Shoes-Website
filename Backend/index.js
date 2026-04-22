@@ -6,6 +6,8 @@ import authRouter from "./routes/auth.routes.js"
 import {verifyToken} from "./middleware/auth.middleware.js";
 import productRouter from "./routes/product.routes.js"
 import cartRouter from "./routes/cart.routes.js"
+import wishListRouter from "./routes/wishlist.routes.js"
+import orderRouter from "./routes/order.routes.js";
 const app=express();
 app.use(express.json())
 connectDB();
@@ -21,6 +23,8 @@ app.get("/api/test",verifyToken,(req,res)=>{
 })
 app.use("/api/products",productRouter)
 app.use("/api/cart",cartRouter)
+app.use("/api/wishlist",wishListRouter)
+app.use("/api/orders",orderRouter)
 app.listen(process.env.PORT,()=>{
   console.log("app is running at port "+process.env.PORT)
 } )
