@@ -46,7 +46,14 @@ async function loginUser(req,res) {
 )
   return res.status(200).json({
     message:"Login Successful",
-    token:token
+    token:token,
+     token: token,
+    user: {                          
+      id: existingUser._id,
+      name: existingUser.name,
+      email: existingUser.email,
+      role: existingUser.role
+    }
   })
   } catch (error) {
     return res.status(500).json({

@@ -1,6 +1,7 @@
 import dotenv from "dotenv";
 dotenv.config();
 import express from "express";
+import cors from "cors"
 import connectDB from "./config/db.js";
 import authRouter from "./routes/auth.routes.js"
 import {verifyToken} from "./middleware/auth.middleware.js";
@@ -13,6 +14,11 @@ import paymentRouter from "./routes/payment.routes.js"
 const app=express();
 app.use(express.json())
 connectDB();
+
+app.use(cors({
+  origin:'http://localhost:5173',
+  credentials:true
+}));
 app.get("/",(req,res)=>{
   res.send("Server is running")
 })
