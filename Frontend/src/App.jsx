@@ -4,9 +4,9 @@ import { AuthProvider, useAuth } from './context/AuthContext'
 import Navbar from "./components/Navbar"
 import Login from './pages/Login'
 import Register from './pages/Register'
+import Products from './pages/Products'
 
 const Home=()=> <div>Home Page</div>
-const Products=()=> <div>products Page</div>
 const ProductDetail=()=> <div>Product detail Page</div>
 const Cart=()=> <div>Cart Page</div>
 const Wishlist=()=> <div>Wishlist Page</div>
