@@ -18,7 +18,7 @@ connectDB();
 app.use(cors({
   origin: [
     'http://localhost:5173',
-    'https://shoes-website-nljmn1ztr-adityagupta18.vercel.app'
+    'https://shoes-website-flame.vercel.app'
   ],
   credentials: true
 }));
