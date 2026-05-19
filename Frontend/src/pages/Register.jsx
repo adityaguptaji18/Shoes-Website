@@ -22,23 +22,36 @@ const Register=()=>{
 
   }
   
-  return(
-    <div>
-      <h2>Register</h2>
-      <form onSubmit={handleSubmit}>
-        <input type="text" placeholder="Name" value={name} onChange={(e)=>setName(e.target.value)}/>
-        <input type="email" placeholder="Email" value={email} onChange={(e)=>setEmail(e.target.value)}
-      />
-      <input type="password" placeholder="Password" value={password} onChange={(e)=>setPassword(e.target.value)} 
-      />
-      {error && <p>{error}</p>}
-      <button type="submit">Register</button>
+  return (
+  <div className="auth-container">
+    <div className="auth-box">
+      <div className="auth-logo">👟</div>
+      <h2>Create Account</h2>
+      <p className="auth-subtitle">Join Gupta Shoes Emporium — Start Shopping!</p>
 
-      <p>Account ban gaya <Link to="/login">Login karo</Link></p>
+      <form onSubmit={handleSubmit}>
+        <div className="input-group">
+          <label>Full Name</label>
+          <input type="text" placeholder="Aditya Gupta" value={name} onChange={(e) => setName(e.target.value)} />
+        </div>
+        <div className="input-group">
+          <label>Email</label>
+          <input type="email" placeholder="aditya@gmail.com" value={email} onChange={(e) => setEmail(e.target.value)} />
+        </div>
+        <div className="input-group">
+          <label>Password</label>
+          <input type="password" placeholder="Min 6 characters" value={password} onChange={(e) => setPassword(e.target.value)} />
+        </div>
+
+        {error && <p className="auth-error">{error}</p>}
+
+        <button type="submit" className="auth-btn">Create Account →</button>
+
+        <p className="auth-link">Already have an account? <Link to="/login">Login here</Link></p>
       </form>
     </div>
-  )
-
+  </div>
+);
 }
 
 export default Register
