@@ -11,7 +11,7 @@ const Navbar=()=>{
   return (
     <nav className='navbar'>
       <Link to="/">
-        👟 ShoesStore
+        👟 Gupta Shoes Emporium
       </Link>
       <div>
         <Link to="/products">Products</Link>

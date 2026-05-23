@@ -6,12 +6,13 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Products from './pages/Products'
 import ProductDetail from './pages/ProductDetail'
+import Cart from './pages/Cart'
+import WishList from './pages/WishList'
+import AdminPanel from './pages/AdminPanel'
+import Home from './pages/Home'
 
-const Home=()=> <div>Home Page</div>
-const Cart=()=> <div>Cart Page</div>
-const Wishlist=()=> <div>Wishlist Page</div>
 const MyOrders=()=> <div>orders Page</div>
-const Admin=()=> <div>admin Page</div>
+
 
 const ProtectedRoute=({children})=>{
   const {user}=useAuth();
@@ -36,9 +37,9 @@ function App(){
               <Route path="/products" element={<Products />} />
               <Route path="/products/:id" element={<ProductDetail />} />
               <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
-              <Route path="/wishlist" element={<ProtectedRoute><Wishlist /></ProtectedRoute>} />
+              <Route path="/wishList" element={<ProtectedRoute><WishList /></ProtectedRoute>} />
               <Route path="/my-orders" element={<ProtectedRoute><MyOrders /></ProtectedRoute>} />
-              <Route path="/admin" element={<AdminRoute><Admin /></AdminRoute>} />
+              <Route path="/admin" element={<AdminRoute><AdminPanel /></AdminRoute>} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

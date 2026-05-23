@@ -52,6 +52,19 @@ import '../styles/ProductDetail.css';
     }
   };
 
+  const handleAddToWishList=async()=>{
+    if(!user){
+      navigate('/login');
+      return;
+    }
+    try {
+      await API.post('/wishlist/add',{productId:product._id});
+      alert('Added to WishList!');
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return(
     <div className="product-detail">
       {loading && <p>Loading...</p>}
@@ -77,7 +90,10 @@ import '../styles/ProductDetail.css';
             </button>
           ))}
         </div>
-      <button onClick={handleAddToCart} className="add-to-cart-btn">Add to Cart</button>
+      <div className="btn-group">
+        <button onClick={handleAddToWishList} className="wishlist-btn">❤️ Add to Wishlist</button>
+        <button onClick={handleAddToCart} className="add-to-cart-btn">Add to Cart</button>
+      </div>
     </div>
       
     </>

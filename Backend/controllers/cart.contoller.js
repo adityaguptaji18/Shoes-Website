@@ -25,7 +25,9 @@ async function addToCart(req,res){
     const newCart= await cartModel.create({user:userId,items:[{product:productId,quantity,size}]})
     return res.status(201).json({cart:newCart});
   }
-  const existingItem=cart.items.find(item=>item.product.toString()===productId)
+  const existingItem=cart.items.find(item=>item.product.toString()===productId && item.size===size)
+  console.log('productId:', productId, 'size:', size);
+  console.log('existingItem:', existingItem);
   if(existingItem){
     existingItem.quantity+=quantity;
   }
@@ -67,7 +69,7 @@ async function updateCartItem(req,res) {
   try {
     const userId=req.user.id;
     const productId=req.params.productId;
-    const {quantity}=req.body
+    const {quantity,size}=req.body
     const cart=await cartModel.findOne({user:userId})
      if(!cart){
       return res.status(404).json({
@@ -75,7 +77,7 @@ async function updateCartItem(req,res) {
       })
     }
     const item=cart.items.find(
-      item=>item.product.toString()===productId
+      item=>item.product.toString()===productId && item.size===size
     )
     if(!item){
       return res.status(404).json({
