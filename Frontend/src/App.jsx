@@ -10,8 +10,10 @@ import Cart from './pages/Cart'
 import WishList from './pages/WishList'
 import AdminPanel from './pages/AdminPanel'
 import Home from './pages/Home'
+import MyOrders from './pages/MyOrders'
+import Checkout from './pages/Checkout'
 
-const MyOrders=()=> <div>orders Page</div>
+// const MyOrders=()=> <div>orders Page</div>
 
 
 const ProtectedRoute=({children})=>{
@@ -40,6 +42,7 @@ function App(){
               <Route path="/wishList" element={<ProtectedRoute><WishList /></ProtectedRoute>} />
               <Route path="/my-orders" element={<ProtectedRoute><MyOrders /></ProtectedRoute>} />
               <Route path="/admin" element={<AdminRoute><AdminPanel /></AdminRoute>} />
+              <Route path='/checkout' element={<ProtectedRoute><Checkout /></ProtectedRoute>} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

@@ -28,9 +28,16 @@ const orderSchema=new mongoose.Schema({
     type:String,
     default:"pending",
   },
-  address:{
+  deliveryAddress:{
+    name:String,
+    phone:String,
+    address:String,
+    city:String,
+    pincode:String
+  },
+  paymentMethod:{
     type:String,
-    required:true,
+    default:"COD"
   }
 },{timestamps:true})
 

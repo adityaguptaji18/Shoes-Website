@@ -1,12 +1,22 @@
 import orderModel from "../models/order.model.js"
 import mongoose from "mongoose";
-
+import cartModel from "../models/cart.model.js"
 async function createOrder(req,res) {
   try {
     const userId=req.user.id;
-    const {items,totalAmount,address}=req.body;
-    const order=await orderModel.create({user:userId,items,totalAmount,address});
-    return res.status(201).json({order,message:"ye le order generate ho gaya"})
+    const {deliveryAddress,paymentMethod}=req.body;
+    const cart = await cartModel.findOne({ user: userId }).populate('items.product');
+    if(!cart || cart.items.length === 0) {
+      return res.status(400).json({ message: "Cart is Empty!" });
+    }
+    const totalAmount = cart.items.reduce((sum, item) => 
+      sum + (item.product?.price || 0) * item.quantity, 0
+    );
+    const order=await orderModel.create({user:userId,items:cart.items,totalAmount,deliveryAddress,paymentMethod,status:'pending'});
+
+    cart.items=[];
+    await cart.save();
+    return res.status(201).json({order,message:"Order placed successfully!"})
   } catch (error) {
     return res.status(500).json({
       message:"Internal server error"

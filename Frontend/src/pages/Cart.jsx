@@ -1,11 +1,12 @@
 import { useState,useEffect } from "react";
-import {Link} from "react-router-dom"
+import {Link , useNavigate} from "react-router-dom"
 import API from "../utils/api";
 import '../styles/Cart.css'
 
 const Cart=()=>{
   const [cart,setCart]=useState([]);
   const [loading,setLoading]=useState(true);
+  const navigate=useNavigate();
 
   const fetchCart=async()=>{
     try{
@@ -46,7 +47,7 @@ const Cart=()=>{
     }
   };
 
-  const total=cart.reduce((sum,item)=>sum+item.product.price*item.quantity,0);
+  const total=cart.filter(item =>item.product !== null).reduce((sum,item)=>sum+(item.product?.price || 0) * item.quantity, 0);
 
   return (
     <div className="cart-container">
@@ -60,7 +61,7 @@ const Cart=()=>{
         </div>
         
       )}
-      {cart.map((item)=>(
+      {cart.filter(item => item.product !== null).map((item)=>(
         <div className="cart-item" key={item._id}>
             <img src={item.product.images?.[0]|| 'https://placehold.co/80x80?text=No+Image'} alt={item.product.name} />
             <div className="cart-item-info">
@@ -80,7 +81,7 @@ const Cart=()=>{
       {cart.length >0 && (
         <div className="cart-total">
           <h3>Total : ₹{total}</h3>
-          <button className="checkout-btn">Proceed to Checkout</button>
+          <button className="checkout-btn" onClick={()=>navigate('/checkout')}>Proceed to Checkout</button>
         </div>  
       )}
     </div>

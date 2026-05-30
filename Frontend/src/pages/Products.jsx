@@ -35,7 +35,9 @@ const Products=()=>{
 
   return (
     <div>
-      <h2>All Products</h2>
+      <div className="products-header">
+        <h2>All Products</h2>
+      </div>
       
       <div className="filters">
         <select value={filters.category} onChange={(e)=>setFilters({...filters,category:e.target.value})}>
