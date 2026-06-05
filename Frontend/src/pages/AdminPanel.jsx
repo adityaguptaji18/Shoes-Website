@@ -130,20 +130,29 @@ const AdminPanel=()=>{
           {loading && <p>Loading...</p>}
           {orders.map((order) => (
             <div className="admin-order-item" key={order._id}>
-              <p>Order ID: {order._id}</p>
-              <p>Total: ₹{order.totalAmount}</p>
-              <p>Status: {order.status}</p>
+              <p><strong>Order ID:</strong> {order._id.slice(-6).toUpperCase()}</p>
+              <p><strong>Total:</strong> ₹{order.totalAmount}</p>
+              <p><strong>Payment:</strong> {order.paymentMethod}</p>
+              <p><strong>Status:</strong> {order.status}</p>
+              
+              <div style={{background:'#f8fafc', padding:'12px', borderRadius:'8px', margin:'10px 0'}}>
+                <p><strong>📦 Delivery Address:</strong></p>
+                <p>👤 {order.deliveryAddress?.name}</p>
+                <p>📞 {order.deliveryAddress?.phone}</p>
+                <p>🏠 {order.deliveryAddress?.address}, {order.deliveryAddress?.city} - {order.deliveryAddress?.pincode}</p>
+              </div>
+
               <select 
-              value={order.status}
-              onChange={(e) => handleUpdateOrderStatus(order._id, e.target.value)}
-            >
-              <option value="pending">Pending</option>
-              <option value="processing">Processing</option>
-              <option value="delivered">Delivered</option>
-              <option value="cancelled">Cancelled</option>
-            </select>
-        </div>
-      ))}
+                value={order.status}
+                onChange={(e) => handleUpdateOrderStatus(order._id, e.target.value)}
+              >
+                <option value="pending">Pending</option>
+                <option value="processing">Processing</option>
+                <option value="delivered">Delivered</option>
+                <option value="cancelled">Cancelled</option>
+              </select>
+            </div>
+          ))}
     </div>
   )}
   </div>

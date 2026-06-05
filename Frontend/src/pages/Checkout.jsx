@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import API from "../utils/api";
@@ -12,6 +12,7 @@ const Checkout=()=>{
   const [pincode,setPincode] = useState('');
   const [loading,setLoading] = useState(false);
   const [paymentMethod,setPaymentMethod] =useState('COD');
+  const [cartTotal,setCartTotal] = useState(0);
   const { user } = useAuth();
   const navigate = useNavigate();
 
@@ -19,7 +20,8 @@ const Checkout=()=>{
     e.preventDefault();
     setLoading(true);
     try {
-      await API.post('/orders',{
+      if(paymentMethod==='COD'){
+        await API.post('/orders',{
         deliveryAddress:{
           name,
           phone,
@@ -27,10 +29,14 @@ const Checkout=()=>{
           city,
           pincode
         },
-        paymentMethod:paymentMethod
+        paymentMethod:'COD'
       });
       alert('Order Placed Successfully!');
       navigate('/my-orders');
+      }
+      else{
+        await handleRazorpayPayment();
+      }  
     } catch (error) {
       console.log(error);
       alert('Order is not placed!')
@@ -38,6 +44,56 @@ const Checkout=()=>{
     finally{
       setLoading(false);
     }
+  }
+  useEffect(() => {
+      const fetchCartTotal = async () => {
+        try {
+          const res = await API.get('/cart');
+          const items = res.data.cart.items || [];
+          const total = items
+            .filter(item => item.product !== null)
+            .reduce((sum, item) => sum + (item.product?.price || 0) * item.quantity, 0);
+          setCartTotal(total);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      fetchCartTotal();
+    }, []);
+
+  const handleRazorpayPayment=async()=>{
+    const orderRes=await API.post('/payment/create-order',{
+      amount:cartTotal
+    });
+    const {order}=orderRes.data;
+    const options={
+      key: import.meta.env.VITE_RAZORPAY_KEY,
+      amount: order.amount,
+      currency: 'INR',
+      name: 'Gupta Shoes Emporium',
+      description: 'Shoe Purchase',
+      order_id: order.id,
+      handler:async(response)=>{
+        await API.post('/payment/verify',{
+          razorpay_order_id: response.razorpay_order_id,
+          razorpay_payment_id: response.razorpay_payment_id,
+          razorpay_signature: response.razorpay_signature
+        });
+        await API.post('/orders',{
+          deliveryAddress:{name,phone,address,city,pincode},
+          paymentMethod:paymentMethod
+        });
+        alert('Payment Successful! Order Placed!');
+        navigate('/my-orders');
+      },
+      prefill:{
+        name:name,
+        contact:phone
+      },
+      theme:{color:'#2563eb'}
+    };
+    const razorpay=new window.Razorpay(options);
+    razorpay.open();
   }
   return (
     <div className="checkout-container">
