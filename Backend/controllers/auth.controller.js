@@ -1,6 +1,7 @@
 import UserModel from "../models/user.model.js";
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
+import sendEmail from "../utils/sendEmail.js"
 async function registerUser(req,res) {
   
   try {
@@ -14,11 +15,21 @@ async function registerUser(req,res) {
   const hashedPassword=await bcrypt.hash(password,10);
   const user=await UserModel.create({name,email,password:hashedPassword,role});
   if(user){
+    await sendEmail(
+    email,
+    "Welcome to Gupta Shoes Emporium",
+    `
+      <h2>Welcome ${name} 🎉</h2>
+      <p>Your account has been created successfully.</p>
+      <p>Thank you for joining Gupta Shoes Emporium.</p>
+    `
+  );
     return res.status(201).json({
       message:"User registered successfully"
     })
   }
   } catch (error) {
+    console.log("REGISTER ERROR:", error);
     res.status(500).json({
       message:"Internal Server Error in RegisterUser"
     })
