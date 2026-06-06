@@ -30,7 +30,7 @@ async function createOrder(req,res) {
 
     cart.items=[];
     await cart.save();
-    await sendEmail(
+    sendEmail(
         user.email,
         "Order Confirmed - Gupta Shoes Emporium",
         `
