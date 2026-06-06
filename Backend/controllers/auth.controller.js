@@ -15,7 +15,7 @@ async function registerUser(req,res) {
   const hashedPassword=await bcrypt.hash(password,10);
   const user=await UserModel.create({name,email,password:hashedPassword,role});
   if(user){
-    await sendEmail(
+    sendEmail(
     email,
     "Welcome to Gupta Shoes Emporium",
     `
