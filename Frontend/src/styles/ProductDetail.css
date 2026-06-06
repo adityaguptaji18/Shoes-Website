@@ -7,7 +7,7 @@
 .product-detail img{
   width: 400px;
   height: 400px;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: 10px;
 }
 
@@ -100,4 +100,22 @@
   .wishlist-btn, .add-to-cart-btn {
     width: 100%;
   }
+}
+
+.back-btn {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+  background: #1d4ed8;
+  transform: translateY(-2px);
 }

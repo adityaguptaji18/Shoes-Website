@@ -146,7 +146,7 @@
 .cart-item img {
   width: 90px;
   height: 90px;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: 10px;
   border: 1px solid #e5e7eb;
 }
@@ -252,4 +252,25 @@
 .cart-empty a {
   color: #2563eb;
   font-weight: 600;
+}
+@media (max-width: 768px) {
+  .cart-container {
+    padding: 0 16px;
+  }
+
+  .cart-item {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .cart-total {
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
+  }
+
+  .checkout-btn {
+    width: 100%;
+    text-align: center;
+  }
 }

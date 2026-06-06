@@ -71,7 +71,8 @@ import '../styles/ProductDetail.css';
 
       {product&& (
         <>
-
+        <button
+          className="back-btn" onClick={() => navigate('/products')}>Back to Products </button>
           <img src={product.images?.[0]|| 'https://placehold.co/400x400?text=No+Image'} alt={product.name} />
           <div className="product-info">
           <h2>{product.name}</h2>
