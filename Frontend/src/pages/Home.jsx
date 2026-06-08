@@ -20,12 +20,13 @@ const Home=()=>{
     <div className="home-container">
 
       <div className="hero">
-        <div className="hero-content">
-          <h1>Step Into Style 👟</h1>
-          <p>Premium shoes for every occasion — Running, Formal, Casual & more!</p>
-          <Link to="/products" className="hero-btn">Shop Now →</Link>
+        <div className="hero-overlay"></div>
+          <div className="hero-content">
+            <h1>Step Into Style</h1>
+            <p>Premium shoes for every occasion — Running, Formal, Casual & more!</p>
+            <Link to="/products" className="hero-btn">Shop Now →</Link>
+          </div>
         </div>
-      </div>
 
       <div className="featured-section">
         <h2>Featured Products</h2>

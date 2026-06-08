@@ -1,6 +1,7 @@
 import {Link , useNavigate} from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useState } from 'react';
+import { FiShoppingCart, FiHeart, FiPackage, FiSettings, FiLogOut, FiUser, FiMenu, FiX } from 'react-icons/fi';
 import '../styles/Navbar.css'
 const Navbar=()=>{
   const {user,logout,isAdmin}=useAuth();
@@ -35,26 +36,68 @@ const Navbar=()=>{
   //     </div>
   //   </nav>
   //)
-  return (
-  <nav className="navbar">
-    <Link to="/" className="navbar-logo">👟 Gupta Shoes Emporium</Link>
+  // return (
+  // <nav className="navbar">
+  //   <Link to="/" className="navbar-logo">Gupta Shoes Emporium</Link>
 
     
-    <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
-      {menuOpen ? '✕' : '☰'}
-    </button>
+  //   <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
+  //     {menuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+  //   </button>
 
    
+  //   <div className={`navbar-links ${menuOpen ? 'open' : ''}`}>
+  //     <Link to="/products" onClick={() => setMenuOpen(false)}>Products</Link>
+
+  //     {user ? (
+  //       <>
+  //         <Link to="/cart" onClick={() => setMenuOpen(false)}>🛒 Cart</Link>
+  //         <Link to="/wishlist" onClick={() => setMenuOpen(false)}>❤️ Wishlist</Link>
+  //         <Link to="/my-orders" onClick={() => setMenuOpen(false)}>My Orders</Link>          {isAdmin && <Link to="/admin" onClick={() => setMenuOpen(false)}>Admin Panel</Link>}
+  //         <span>Hi, {user.name}</span>
+  //         <button onClick={handleLogout} className="logout-btn">Logout</button>
+  //       </>
+  //     ) : (
+  //       <>
+  //         <Link to="/login" onClick={() => setMenuOpen(false)}>Login</Link>
+  //         <Link to="/register" onClick={() => setMenuOpen(false)}>Register</Link>
+  //       </>
+  //     )}
+  //   </div>
+  // </nav>);
+  return (
+  <nav className="navbar">
+    <Link to="/" className="navbar-logo">
+      Gupta Shoes Emporium
+    </Link>
+
+    <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
+      {menuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+    </button>
+
     <div className={`navbar-links ${menuOpen ? 'open' : ''}`}>
       <Link to="/products" onClick={() => setMenuOpen(false)}>Products</Link>
 
       {user ? (
         <>
-          <Link to="/cart" onClick={() => setMenuOpen(false)}>🛒 Cart</Link>
-          <Link to="/wishlist" onClick={() => setMenuOpen(false)}>❤️ Wishlist</Link>
-          <Link to="/my-orders" onClick={() => setMenuOpen(false)}>My Orders</Link>          {isAdmin && <Link to="/admin" onClick={() => setMenuOpen(false)}>Admin Panel</Link>}
-          <span>Hi, {user.name}</span>
-          <button onClick={handleLogout} className="logout-btn">Logout</button>
+          <Link to="/cart" onClick={() => setMenuOpen(false)}>
+            <FiShoppingCart /> Cart
+          </Link>
+          <Link to="/wishlist" onClick={() => setMenuOpen(false)}>
+            <FiHeart /> Wishlist
+          </Link>
+          <Link to="/my-orders" onClick={() => setMenuOpen(false)}>
+            <FiPackage /> My Orders
+          </Link>
+          {isAdmin && (
+            <Link to="/admin" onClick={() => setMenuOpen(false)}>
+              <FiSettings /> Admin
+            </Link>
+          )}
+          <span><FiUser /> Hi, {user.name}</span>
+          <button onClick={handleLogout} className="logout-btn">
+            <FiLogOut /> Logout
+          </button>
         </>
       ) : (
         <>
@@ -63,6 +106,7 @@ const Navbar=()=>{
         </>
       )}
     </div>
-  </nav>);
+  </nav>
+);
 }
 export default Navbar;

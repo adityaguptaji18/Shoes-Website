@@ -104,3 +104,20 @@
     text-align: center;
   }
 }
+.navbar-links a {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.navbar-links span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
